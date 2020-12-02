@@ -1,5 +1,5 @@
 def valid_password?(line)
-  m = /(?<first>\d+)-(?<second>\d+) (?<character>.): (?<password>.+)/.match(line)
+  m = /(?<first>\d+)-(?<second>\d+) (?<character>[a-z]): (?<password>.+)/.match(line)
 
   repetition = m[:first].to_i..m[:second].to_i
   character_count = m[:password].chars.count { |c| c == m[:character] }

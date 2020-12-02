@@ -1,5 +1,5 @@
 def valid_password?(line)
-  m = /(?<first>\d+)-(?<second>\d+) (?<character>.): (?<password>.+)/.match(line)
+  m = /(?<first>\d+)-(?<second>\d+) (?<character>[a-z]): (?<password>.+)/.match(line)
 
   index_1 = m[:first].to_i - 1
   index_2 = m[:second].to_i - 1
