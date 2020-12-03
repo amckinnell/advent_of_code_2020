@@ -1,11 +1,17 @@
 class Solution
+  attr_reader :location
+
+  def initialize(location)
+    @location = location
+  end
+
   def run
     row = 0
     col = 0
     trees = 0
 
-    while row < rows
-      trees += 1 if tree_at?(row, col)
+    while row < location.rows
+      trees += 1 if location.tree_at?(row, col)
 
       row += 1
       col += 3
@@ -13,11 +19,15 @@ class Solution
 
     trees
   end
+end
 
-  private
+class Location
+  def initialize(filename)
+    @filename = filename
+  end
 
   def location
-    @_location ||= File.foreach("input_03.txt").map { |line| line.chomp.chars }
+    @_location ||= File.foreach(@filename).map { |line| line.chomp.chars }
   end
 
   def rows
@@ -34,5 +44,7 @@ class Solution
 end
 
 if $PROGRAM_NAME == __FILE__
-  p Solution.new.run
+  location = Location.new("input_03.txt")
+
+  p Solution.new(location).run
 end

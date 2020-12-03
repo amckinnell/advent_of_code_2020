@@ -1,7 +1,8 @@
 class Solution
-  attr_reader :row_increment, :col_increment
+  attr_reader :location, :row_increment, :col_increment
 
-  def initialize(row_increment, col_increment)
+  def initialize(location, row_increment, col_increment)
+    @location = location
     @row_increment = row_increment
     @col_increment = col_increment
   end
@@ -11,8 +12,8 @@ class Solution
     col = 0
     trees = 0
 
-    while row < rows
-      trees += 1 if tree_at?(row, col)
+    while row < location.rows
+      trees += 1 if location.tree_at?(row, col)
 
       row += row_increment
       col += col_increment
@@ -20,11 +21,15 @@ class Solution
 
     trees
   end
+end
 
-  private
+class Location
+  def initialize(filename)
+    @filename = filename
+  end
 
   def location
-    @_location ||= File.foreach("input_03.txt").map { |line| line.chomp.chars }
+    @_location ||= File.foreach(@filename).map { |line| line.chomp.chars }
   end
 
   def rows
@@ -41,6 +46,8 @@ class Solution
 end
 
 if $PROGRAM_NAME == __FILE__
+  location = Location.new("input_03.txt")
+
   slopes = [
     [1, 1],
     [1, 3],
@@ -49,5 +56,5 @@ if $PROGRAM_NAME == __FILE__
     [2, 1]
   ]
 
-  p slopes.map { |slope| Solution.new(*slope).run }.reduce(:*)
+  p slopes.map { |slope| Solution.new(location, *slope).run }.reduce(:*)
 end
