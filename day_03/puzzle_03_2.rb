@@ -1,28 +1,3 @@
-class Solution
-  attr_reader :location, :row_increment, :col_increment
-
-  def initialize(location, row_increment, col_increment)
-    @location = location
-    @row_increment = row_increment
-    @col_increment = col_increment
-  end
-
-  def run
-    row = 0
-    col = 0
-    trees = 0
-
-    while row < location.rows
-      trees += 1 if location.tree_at?(row, col)
-
-      row += row_increment
-      col += col_increment
-    end
-
-    trees
-  end
-end
-
 class Location
   def initialize(filename)
     @filename = filename
@@ -45,6 +20,26 @@ class Location
   end
 end
 
+class SlopeEnumerator
+  def initialize(stop_row, slope)
+    @stop_row = stop_row
+    @row_increment, @col_increment = slope
+
+    @row, @col = 0, 0
+  end
+
+  def each
+    loop do
+      raise StopIteration unless @row < @stop_row
+
+      yield @row, @col
+
+      @row += @row_increment
+      @col += @col_increment
+    end
+  end
+end
+
 if $PROGRAM_NAME == __FILE__
   location = Location.new("input_03.txt")
 
@@ -56,5 +51,9 @@ if $PROGRAM_NAME == __FILE__
     [2, 1]
   ]
 
-  p slopes.map { |slope| Solution.new(location, *slope).run }.reduce(:*)
+  slope_enumerators = slopes.map { |slope| SlopeEnumerator.new(location.rows, slope).enum_for }
+
+  p slope_enumerators
+    .map { |slope_enumerator| slope_enumerator.count { |row, col| location.tree_at?(row, col) } }
+    .reduce(:*)
 end
