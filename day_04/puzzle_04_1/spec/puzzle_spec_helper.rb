@@ -1,4 +1,6 @@
 require "spec_helper"
+
+require "active_support"
 require "zeitwerk"
 
 loader = Zeitwerk::Loader.new
