@@ -1,0 +1,3 @@
+class PassportData
+  # TBD
+end
