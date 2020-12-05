@@ -1,9 +1,6 @@
 require "spec_helper"
 
 require "active_support"
-require "zeitwerk"
 
-loader = Zeitwerk::Loader.new
+require_relative "../configure_zeitwerk"
 
-loader.push_dir("./lib")
-loader.setup
