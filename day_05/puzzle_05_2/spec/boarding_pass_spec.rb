@@ -1,4 +1,6 @@
 RSpec.describe BoardingPass do
+  subject(:boarding_pass) { described_class.new }
+
   describe "decodes a Boarding Pass Code to a Set ID" do
     [
       ["FBFBBFFRLR", 357],
@@ -7,16 +9,16 @@ RSpec.describe BoardingPass do
       ["BBFFBBFRLL", 820]
     ].each do |boarding_pass_code, seat_id|
       it "#{boarding_pass_code} to #{seat_id}" do
-        boarding_pass = BoardingPass.new(boarding_pass_code)
+        seat_id = boarding_pass.seat_id(boarding_pass_code)
 
-        expect(boarding_pass.seat_id).to eq(seat_id)
+        expect(seat_id).to eq(seat_id)
       end
     end
   end
 
   it "repl" do
-    boarding_pass = BoardingPass.new("FBFBBFFRLR")
+    seat_id = boarding_pass.seat_id("FBFBBFFRLR")
 
-    expect(boarding_pass.seat_id).to eq(357)
+    expect(seat_id).to eq(357)
   end
 end

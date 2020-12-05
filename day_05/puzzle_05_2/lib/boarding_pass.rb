@@ -2,26 +2,20 @@
 # Knows how to decode a boarding pass to a seat ID
 #
 class BoardingPass
-  attr_reader :boarding_pass
-
-  def initialize(boarding_pass)
-    @boarding_pass = boarding_pass
-  end
-
-  def seat_id
-    row = binary_search(row_codes)
-    col = binary_search(col_codes)
+  def seat_id(boarding_pass)
+    row = binary_search(row_codes(boarding_pass))
+    col = binary_search(col_codes(boarding_pass))
 
     (row * 8) + col
   end
 
   private
 
-  def row_codes
+  def row_codes(boarding_pass)
     boarding_pass.chars.slice(0..6).map(&method(:normalize_row_code))
   end
 
-  def col_codes
+  def col_codes(boarding_pass)
     boarding_pass.chars.slice(7..9).map(&method(:normalize_col_code))
   end
 
