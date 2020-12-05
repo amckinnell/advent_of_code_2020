@@ -13,4 +13,10 @@ RSpec.describe BoardingPass do
       end
     end
   end
+
+  it "repl" do
+    boarding_pass = BoardingPass.new("FBFBBFFRLR")
+
+    expect(boarding_pass.seat_id).to eq(357)
+  end
 end
