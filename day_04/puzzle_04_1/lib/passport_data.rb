@@ -1,7 +1,6 @@
 #
 # Knows how to parse the Password Data input file
 #
-
 class PassportData
   def initialize(filename)
     @filename = filename
@@ -26,6 +25,6 @@ class PassportData
   end
 
   def raw_passport_data
-    @_raw_passport_data ||= File.foreach(@filename).map { |line| line.chomp }
+    @_raw_passport_data ||= File.foreach(@filename).map(&:chomp)
   end
 end
