@@ -2,6 +2,10 @@
 # Knows how to decode a boarding pass to a seat ID
 #
 class BoardingPass
+  def all
+    ""
+  end
+
   def seat_id(boarding_pass)
     row = binary_search(row_codes(boarding_pass))
     col = binary_search(col_codes(boarding_pass))
@@ -37,8 +41,9 @@ class BoardingPass
     end
   end
 
+  # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
   def binary_search(codes)
-    range = [0, (2 ** codes.length) - 1]
+    range = [0, 2 ** codes.length - 1] # rubocop:disable Layout/SpaceAroundOperators
 
     while codes.any?
       midpoint = range[0] + ((range[1] - range[0]) + 1) / 2
@@ -54,10 +59,10 @@ class BoardingPass
       codes.shift
     end
 
-    if range[0] != range[1]
-      raise "Incorrect termination condition: #{range}"
-    end
+    raise "Incorrect termination condition: #{range}" if range[0] != range[1]
 
     range.first
   end
+
+  # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 end
