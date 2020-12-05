@@ -3,8 +3,10 @@ require_relative "configure_zeitwerk"
 boarding_pass = BoardingPass.new
 boarding_pass_codes = File.foreach("../input_05.txt").map(&:chomp)
 
-highest_seat_id = boarding_pass_codes
-  .map { |boarding_pass_code| boarding_pass.seat_id(boarding_pass_code) }
-  .max
+missing_boarding_pass_codes = boarding_pass.all - boarding_pass_codes
 
-pp highest_seat_id
+missing_seat_ids = missing_boarding_pass_codes
+  .map { |missing_boarding_pass_code| boarding_pass.seat_id(missing_boarding_pass_code) }
+
+p "#################### missing_seat_ids ####################"
+p missing_seat_ids
