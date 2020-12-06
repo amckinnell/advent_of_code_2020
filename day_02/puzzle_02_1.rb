@@ -1,10 +1,10 @@
-def valid_password?(line)
+valid_password = ->(line) {
   m = /(?<first>\d+)-(?<second>\d+) (?<character>[a-z]): (?<password>.+)/.match(line)
 
   repetition = m[:first].to_i..m[:second].to_i
   character_count = m[:password].chars.count { |c| c == m[:character] }
 
   repetition.include?(character_count)
-end
+}
 
-puts File.foreach("input_02.txt").count { |line| valid_password?(line.chomp) }
+p File.readlines("input_02.txt", chomp: true).count(&valid_password)
