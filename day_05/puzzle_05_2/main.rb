@@ -1,17 +1,10 @@
-require_relative "configure_zeitwerk"
+boarding_passes = File.readlines("../input_05.txt", chomp: true)
 
-boarding_pass = BoardingPass.new
-boarding_pass_codes = File.foreach("../input_05.txt").map(&:chomp)
+seat_id = ->(boarding_pass) { boarding_pass.tr("FBLR", "0101").to_i(2) }
 
-missing_boarding_pass_codes = boarding_pass.all - boarding_pass_codes
+seat_ids = boarding_passes.map(&seat_id)
+all_seat_ids = (seat_ids.min..seat_ids.max).to_a
 
-missing_seat_ids = missing_boarding_pass_codes
-  .map { |missing_boarding_pass_code| boarding_pass.seat_id(missing_boarding_pass_code) }
+my_seat_id = all_seat_ids - seat_ids
 
-pruned_from_front_missing_seat_ids =
-  missing_seat_ids.drop_while.with_index { |id, i| id + 1 == missing_seat_ids[i + 1] }
-
-pruned_from_back_missing_seat_ids =
-  missing_seat_ids.reverse.drop_while.with_index { |id, i| id - 1 == missing_seat_ids.reverse[i + 1] }
-
-p (pruned_from_front_missing_seat_ids & pruned_from_back_missing_seat_ids)[1]
+p my_seat_id
