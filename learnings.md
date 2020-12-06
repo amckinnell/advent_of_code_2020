@@ -48,3 +48,7 @@ Specifying a Base for Integer Conversion
 Converting a Range to an Array
 
 - `(seat_ids.min..seat_ids.max).to_a`
+
+## Day 06
+
+Using a lambda is useful when you have a collection pipeline in a collection pipeline.
