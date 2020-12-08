@@ -1,0 +1,2 @@
+--require puzzle_spec_helper
+-I ./lib
