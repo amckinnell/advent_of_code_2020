@@ -7,7 +7,8 @@ class BagRegulations
 
   def find_outermost_bag_colors
     @bag_regulation_input.each do |bag_regulations|
-      outermost_colors = colors_for_bag_regulations(bag_regulations[0], bag_regulations)
+      bag_color = bag_regulations[0]
+      outermost_colors = colors_for_bag_regulations(bag_color, bag_regulations)
 
       @outermost_bag_colors_found.concat(outermost_colors)
     end
@@ -18,14 +19,14 @@ class BagRegulations
   private
 
   def colors_for_bag_regulations(outermost_bag_color, bag_regulations)
-    bag_regulations[1].each_with_object([]) do |bag_regulation, memo|
-      colors = if bag_regulation == "shiny gold"
-        [outermost_bag_color]
-      else
-        colors_for_bag_regulations(outermost_bag_color, [bag_regulation, @bag_regulation_input[bag_regulation]])
-      end
+    inner_bags = bag_regulations[1]
 
-      memo.concat(colors)
+    inner_bags.each_with_object([]) do |bag, memo|
+      if bag == "shiny gold"
+        memo.append(outermost_bag_color)
+      else
+        memo.concat(colors_for_bag_regulations(outermost_bag_color, [bag, @bag_regulation_input[bag]]))
+      end
     end
   end
 end
