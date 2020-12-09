@@ -1,4 +1,4 @@
-RSpec.describe StartHere do
+RSpec.describe XmasData do
   it "works" do
     raise "TBD"
   end

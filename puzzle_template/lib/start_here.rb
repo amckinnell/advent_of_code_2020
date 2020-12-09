@@ -1,3 +1,3 @@
-class StartHere
+class XmasData
   # TBD
 end
