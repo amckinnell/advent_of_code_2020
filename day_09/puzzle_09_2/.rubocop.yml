@@ -13,10 +13,19 @@ Naming/MemoizedInstanceVariableName:
   Enabled: true
   EnforcedStyleForLeadingUnderscores: required
 
+Naming/MethodParameterName:
+  Enabled: false
+
+Metrics:
+  Enabled: false
+
 Style/BlockDelimiters:
   Enabled: true
   BracesRequiredMethods:
     - 'let'
+
+Style/Documentation:
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -25,6 +34,9 @@ Style/HashSyntax:
   Enabled: true
   Exclude:
     - 'Rakefile'
+
+Style/IfUnlessModifier:
+  Enabled: false
 
 Style/MutableConstant:
   Enabled: false

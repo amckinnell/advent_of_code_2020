@@ -23,8 +23,8 @@ RSpec.describe XmasData do
       576
     DATA
 
-    result = xmas_data.bad_encoding
+    result = xmas_data.encryption_weakness
 
-    expect(result).to eq(127)
+    expect(result).to eq(62)
   end
 end
