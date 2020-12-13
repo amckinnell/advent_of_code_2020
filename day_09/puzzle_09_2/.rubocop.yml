@@ -1,0 +1,49 @@
+AllCops:
+  NewCops: enable
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+
+Lint/EmptyClass:
+  Enabled: true
+  AllowComments: true
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: true
+  EnforcedStyleForLeadingUnderscores: required
+
+Naming/MethodParameterName:
+  Enabled: false
+
+Metrics:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: true
+  BracesRequiredMethods:
+    - 'let'
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: true
+  Exclude:
+    - 'Rakefile'
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/SymbolArray:
+  Enabled: false
