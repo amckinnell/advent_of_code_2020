@@ -1,0 +1,3 @@
+class SeatingSystem
+  # TBD
+end
