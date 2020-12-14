@@ -1,5 +1,73 @@
 RSpec.describe SeatingSystem do
-  it "works" do
+  describe "simple cases" do
+    it "minimal with empty seat" do
+      seating_system = SeatingSystem.new(<<~DATA)
+        L.
+        LL
+      DATA
+
+      seating_system.next_round
+
+      expect(seating_system.display).to eq(<<~EXPECTED.chomp)
+        #.
+        ##
+      EXPECTED
+
+      seating_system.next_round
+
+      expect(seating_system.display).to eq(<<~EXPECTED.chomp)
+        #.
+        ##
+      EXPECTED
+    end
+
+    it "minimal with no empty seat" do
+      seating_system = SeatingSystem.new(<<~DATA)
+        LL
+        LL
+      DATA
+
+      seating_system.next_round
+
+      expect(seating_system.display).to eq(<<~EXPECTED.chomp)
+        ##
+        ##
+      EXPECTED
+
+      seating_system.next_round
+
+      expect(seating_system.display).to eq(<<~EXPECTED.chomp)
+        ##
+        ##
+      EXPECTED
+    end
+
+    it "minimal with seats becoming empty" do
+      seating_system = SeatingSystem.new(<<~DATA)
+        LL.
+        LLL
+        LLL
+      DATA
+
+      seating_system.next_round
+
+      expect(seating_system.display).to eq(<<~EXPECTED.chomp)
+        ##.
+        ###
+        ###
+      EXPECTED
+
+      seating_system.next_round
+
+      expect(seating_system.display).to eq(<<~EXPECTED.chomp)
+        #L.
+        LLL
+        #L#
+      EXPECTED
+    end
+  end
+
+  it "passes the example from the problem statement" do
     seating_system = SeatingSystem.new(<<~DATA)
       L.LL.LL.LL
       LLLLLLL.LL
@@ -13,9 +81,9 @@ RSpec.describe SeatingSystem do
       L.LLLLL.LL
     DATA
 
-    result = seating_system.next_round
+    seating_system.next_round
 
-    expect(result).to eq(<<~EXPECTED)
+    expect(seating_system.display).to eq(<<~EXPECTED.chomp)
       #.##.##.##
       #######.##
       #.#.#..#..
@@ -28,9 +96,9 @@ RSpec.describe SeatingSystem do
       #.#####.##
     EXPECTED
 
-    result = seating_system.next_round
+    seating_system.next_round
 
-    expect(result).to eq(<<~EXPECTED)
+    expect(seating_system.display).to eq(<<~EXPECTED.chomp)
       #.LL.L#.##
       #LLLLLL.L#
       L.L.L..L..
