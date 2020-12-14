@@ -8,6 +8,7 @@ RSpec.describe SeatingSystem do
 
       seating_system.next_round
 
+      expect(seating_system).to be_changed.and(have_attributes(occupied_seats: 3))
       expect(seating_system.display).to eq(<<~EXPECTED.chomp)
         #.
         ##
@@ -15,6 +16,7 @@ RSpec.describe SeatingSystem do
 
       seating_system.next_round
 
+      expect(seating_system).to_not be_changed
       expect(seating_system.display).to eq(<<~EXPECTED.chomp)
         #.
         ##
@@ -29,6 +31,7 @@ RSpec.describe SeatingSystem do
 
       seating_system.next_round
 
+      expect(seating_system).to be_changed.and(have_attributes(occupied_seats: 4))
       expect(seating_system.display).to eq(<<~EXPECTED.chomp)
         ##
         ##
@@ -36,6 +39,7 @@ RSpec.describe SeatingSystem do
 
       seating_system.next_round
 
+      expect(seating_system).to_not be_changed
       expect(seating_system.display).to eq(<<~EXPECTED.chomp)
         ##
         ##
@@ -51,6 +55,7 @@ RSpec.describe SeatingSystem do
 
       seating_system.next_round
 
+      expect(seating_system).to be_changed.and(have_attributes(occupied_seats: 8))
       expect(seating_system.display).to eq(<<~EXPECTED.chomp)
         ##.
         ###
@@ -59,6 +64,7 @@ RSpec.describe SeatingSystem do
 
       seating_system.next_round
 
+      expect(seating_system).to be_changed.and(have_attributes(occupied_seats: 3))
       expect(seating_system.display).to eq(<<~EXPECTED.chomp)
         #L.
         LLL
@@ -83,6 +89,7 @@ RSpec.describe SeatingSystem do
 
     seating_system.next_round
 
+    expect(seating_system).to be_changed.and(have_attributes(occupied_seats: 71))
     expect(seating_system.display).to eq(<<~EXPECTED.chomp)
       #.##.##.##
       #######.##
@@ -98,6 +105,7 @@ RSpec.describe SeatingSystem do
 
     seating_system.next_round
 
+    expect(seating_system).to be_changed.and(have_attributes(occupied_seats: 20))
     expect(seating_system.display).to eq(<<~EXPECTED.chomp)
       #.LL.L#.##
       #LLLLLL.L#

@@ -1,4 +1,8 @@
 class SeatingSystem
+  FLOOR = "."
+  EMPTY = "L"
+  OCCUPIED = "#"
+
   def initialize(raw_data)
     @raw_data = raw_data
 
@@ -9,6 +13,10 @@ class SeatingSystem
     @current_grid = @grid_data
   end
 
+  def changed?
+    @changed
+  end
+
   def display
     @current_grid
       .map { |row| row.join }
@@ -17,6 +25,7 @@ class SeatingSystem
 
   def next_round
     next_grid = Array.new(@rows) { Array.new(@cols) }
+    @changed = false
 
     (0...@rows).step do |row|
       (0...@cols).step do |col|
@@ -27,20 +36,29 @@ class SeatingSystem
     @current_grid = next_grid
   end
 
+  def occupied_seats
+    display.chars.count { |c| c == OCCUPIED }
+  end
+
   private
 
   def next_seat(row, col)
     current_seat = @current_grid[row][col]
     occupied_seats = compute_neighbouring_occupied_seats(row, col)
 
-    case current_seat
-    when "."
-      current_seat
-    when "L"
-      occupied_seats.zero? ? "#" : current_seat
-    when "#"
-      4 <= occupied_seats ? "L" : current_seat
-    end
+    result =
+      case current_seat
+      when FLOOR
+        current_seat
+      when EMPTY
+        occupied_seats.zero? ? OCCUPIED : current_seat
+      when OCCUPIED
+        4 <= occupied_seats ? EMPTY : current_seat
+      end
+
+    @changed ||= current_seat != result
+
+    result
   end
 
   def compute_neighbouring_occupied_seats(r, c)
@@ -48,7 +66,7 @@ class SeatingSystem
       .map { |n_r, n_c| [n_r + r, n_c + c] }
       .select { |g_r, g_c| (0...@rows).include?(g_r) && (0...@cols).include?(g_c) }
       .map { |g_r, g_c| @current_grid[g_r][g_c] }
-      .count { |seat| seat == "#" }
+      .count { |seat| seat == OCCUPIED }
   end
 
   def neighbourhood_offsets
