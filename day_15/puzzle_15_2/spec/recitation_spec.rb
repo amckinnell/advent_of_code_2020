@@ -50,10 +50,10 @@ RSpec.describe Recitation do
       loop do
         recitation.next_number
 
-        break if recitation.turn == 2_020
+        break if recitation.turn == 30_000_000
       end
 
-      expect(recitation.last_spoken).to eq(expected_last_spoken), "#{recitation.history.reverse.take(5)}"
+      expect(recitation.last_spoken).to eq(expected_last_spoken)
     end
   end
 end

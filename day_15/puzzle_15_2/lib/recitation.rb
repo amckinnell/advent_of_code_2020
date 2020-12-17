@@ -1,18 +1,18 @@
 class Recitation
-  attr_reader :history, :last_spoken, :turn
+  attr_reader :last_spoken, :turn
 
   def initialize(numbers)
     @numbers = numbers
 
-    @history = numbers.map.with_index { |number, index| [number, [index]] }.to_h
-    @last_spoken = numbers[2]
-    @turn = 3
+    @history = numbers.map.with_index { |number, index| [number, [nil, index]] }.to_h
+    @last_spoken = numbers.last
+    @turn = numbers.length
   end
 
   def next_number
-    result = last_spoken_new? ? 0 : age
+    result = last_spoken_for_first_time? ? 0 : age
 
-    add_to_history(result)
+    @history[result] = @history.key?(result) ? [@history[result].last, @turn] : [nil, @turn]
 
     @last_spoken = result
     @turn += 1
@@ -22,19 +22,11 @@ class Recitation
 
   private
 
-  def add_to_history(result)
-    if history.key?(result)
-      @history[result] = [@history[result][1], result]
-    else
-      @history[result] = [turn]
-    end
-  end
-
   def age
-    history[last_spoken].reduce(:-).abs
+    @history[@last_spoken].reduce(:-).abs
   end
 
-  def last_spoken_new?
-    !history.key?(last_spoken)
+  def last_spoken_for_first_time?
+    @history[@last_spoken].first.nil?
   end
 end
