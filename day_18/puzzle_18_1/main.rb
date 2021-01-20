@@ -1,3 +1,7 @@
 require_relative "configure_zeitwerk"
 
-# TBD: Top-level script goes here
+operation_orders = OperationOrders.new(File.read("../input_18.txt"))
+
+p operation_orders.evaluate.sum
+
+# Correct answer: 870
