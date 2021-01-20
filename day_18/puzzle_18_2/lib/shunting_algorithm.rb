@@ -19,7 +19,7 @@ class ShuntingAlgorithm
         output_queue.push(token.to_i)
 
       when /[+*]/
-        while @operator_stack.any? && @operator_stack.last != "("
+        while @operator_stack.any? && @operator_stack.last == :+ && @operator_stack.last != "("
           output_queue.push(@operator_stack.pop)
         end
 
