@@ -11,7 +11,7 @@ class ShuntingAlgorithm
     @output_queue = []
   end
 
-  def evaluate
+  def parse
     @tokens.each do |token|
       case token
 

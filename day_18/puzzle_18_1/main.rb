@@ -1,7 +1,13 @@
 require_relative "configure_zeitwerk"
 
-operation_orders = OperationOrders.new(File.read("../input_18.txt"))
+expressions = File.read("../input_18.txt").lines
 
-p operation_orders.evaluate.sum
+result =
+  expressions
+    .map { |expression| ShuntingAlgorithm.new(expression.chomp).parse }
+    .map { |rpn_expression| Evaluator.new(rpn_expression).evaluate }
+    .sum
 
-# Correct answer: 870
+puts result
+
+# Correct answer: 464478013511

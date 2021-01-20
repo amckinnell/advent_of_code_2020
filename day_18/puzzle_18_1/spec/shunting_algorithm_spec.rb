@@ -11,7 +11,7 @@ RSpec.describe ShuntingAlgorithm do
     it "transforms '#{expression}' to #{expected_result}" do
       shunting_algorithm = ShuntingAlgorithm.new(expression)
 
-      result = shunting_algorithm.evaluate
+      result = shunting_algorithm.parse
 
       expect(result).to eq(expected_result)
     end
