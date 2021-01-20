@@ -1,24 +1,34 @@
 RSpec.describe OperationOrder do
-  describe "simple cases without parentheses" do
-    it "minimal expression" do
-      operation_order = OperationOrder.new(<<~DATA)
-        2
-        3
-      DATA
-
+  describe "simple cases" do
+    it "simple token" do
+      operation_order = OperationOrder.new("2")
       result = operation_order.evaluate
 
-      expect(result).to eq([2, 3])
+      expect(result).to eq(2)
     end
 
-    it "minimal expression with operator" do
-      operation_order = OperationOrder.new(<<~DATA)
-        1 + 2
-      DATA
+    xit "simple binary + expression" do
+      operation_order = OperationOrders.new("1 + 2")
 
       result = operation_order.evaluate
 
-      expect(result).to eq([3])
+      expect(result).to eq(3)
+    end
+
+    xit "simple binary * expression" do
+      operation_order = OperationOrders.new("2 * 3")
+
+      result = operation_order.evaluate
+
+      expect(result).to eq(6)
+    end
+
+    xit "compound expression" do
+      operation_order = OperationOrders.new("2 + 2 * 3")
+
+      result = operation_order.evaluate
+
+      expect(result).to eq(12)
     end
   end
 end
